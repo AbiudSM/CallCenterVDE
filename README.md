@@ -19,8 +19,8 @@ Este sistema fue creado con la intención de mejorar la experiencia al recibir o
 
 #### Python
 > easygui==0.98.2
-PyQt5==5.15.6
-rich==11.2.0
+> PyQt5==5.15.6
+> rich==11.2.0
 
 ### Sistema
 Para el correcto funcionamiento del sistema deben estar funcionando los 3 siguientes elementos: Monitoreo de llamadas (Call Monitor), envió de llamadas a las extensiones (Servidor) y el receptor de llamadas para despliegue de información (Cliente o extensión).
