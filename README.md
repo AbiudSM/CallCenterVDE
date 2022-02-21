@@ -36,7 +36,7 @@ Para iniciar el cliente se debe tener la carpeta “Cliente” en alguno de los 
 Se realiza un monitoreo de las llamadas entrantes y se realizan las respectivas validaciones para números telefónicos de nuestros clientes, se cuentan con 3 principales programas para el funcionamiento del sistema, el detector de llamadas (Call Monitor Panasonic), el servidor y el cliente (ventas).
 
 ### Call Monitor Panasonic
-Call Monitor 3 es una herramienta open source proporcionada por Panasonic para la detección de llamadas por medio del conmutador Panasonic, se utilizó está herramienta para generar archivos que reportan las llamadas entrantes de los respectivos clientes. Las llamadas son almacenadas en la carpeta ExtText, las cuales son manejadas por el servidor.exe para el envió de información a los equipos del departamento de ventas, este cambio fue agregado en el método SetInfoData del archivo CallData.cpp
+[Panasonic CallMonitor3](https://panasonic.net/cns/office/products/pbx/solutions/OpenSourceTools/ "Panasonic CallMonitor3") es una herramienta open source proporcionada por Panasonic para la detección de llamadas por medio del conmutador Panasonic, se utilizó está herramienta para generar archivos que reportan las llamadas entrantes de los respectivos clientes. Las llamadas son almacenadas en la carpeta ExtText, las cuales son manejadas por el servidor.exe para el envió de información a los equipos del departamento de ventas, este cambio fue agregado en el método SetInfoData del archivo CallData.cpp
 
 Se obtiene tanto el estado de la llamada como el nombre de la línea, la llamada será registrada si la llamada entró en alguna de las extensiones y si el estado de la llamada es diferente a ONHOLD y DISCONNECTED.
 
