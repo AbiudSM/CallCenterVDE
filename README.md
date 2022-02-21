@@ -7,7 +7,7 @@
 Este sistema fue creado con la intención de mejorar la experiencia al recibir o realizar llamadas a clientes de la empresa por parte del equipo de ventas conectados a sus respectivas extensiones. La funcionalidad del sistema consta de monitorear las llamadas de clientes y una vez se detecte el número del cliente emisor se desplegará una ventana en el navegador con la información de dicho cliente, esto en el equipo que esté conectado a la extensión por parte del departamento de ventas. 
 
 ### Tecnologías utilizadas
-- Call monitor 3 (Panasonic)
+- [Panasonic CallMonitor3](https://panasonic.net/cns/office/products/pbx/solutions/OpenSourceTools/ "Panasonic CallMonitor3")
 - Python 3.7.2
 - Visual Studio 2013
 
