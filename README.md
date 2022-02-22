@@ -42,7 +42,7 @@ Se obtiene tanto el estado de la llamada como el nombre de la línea, la llamada
 
 ```cpp
 string status = pTree->GetItemText(hTree);
-HTREEITEM prevCTree = pTree->GetPrevVisibleItem(hTree);
+HTREEITEM prevCTree = pTree->GetParentItem(hTree);
 string topItem = pTree->GetItemText(prevCTree);
 string lineName = topItem.substr(0, 4);
 

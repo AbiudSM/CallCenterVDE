@@ -612,7 +612,7 @@ void CCallData::SetInfoData(HCALL hCall,CTreeCtrl* pTree,HTREEITEM hTree)
 
 	
 	string status = pTree->GetItemText(hTree);
-	HTREEITEM prevCTree = pTree->GetPrevVisibleItem(hTree);
+	HTREEITEM prevCTree = pTree->GetParentItem(hTree);
 	string topItem = pTree->GetItemText(prevCTree);
 	string lineName = topItem.substr(0, 4);
 
