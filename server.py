@@ -40,11 +40,11 @@ def handle_client(conn, addr):
                 time.sleep(.5)
 
         ext = msg 
-        daily_report('INICIÓ SESIÓN', ext)
     except Exception as e:
         ext = 'unknown'
         console.print(f"\n[NEW CONNECTION] {addr[0]} connected at {[now_time]}.",style='green')
 
+    daily_report('INICIÓ SESIÓN', ext)
 
     # Send the URL to the connected extension
     connected = True
