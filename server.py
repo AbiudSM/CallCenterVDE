@@ -42,6 +42,7 @@ def handle_client(conn, addr):
         ext = msg 
         daily_report('INICIÓ SESIÓN', ext)
     except Exception as e:
+        ext = 'unknown'
         console.print(f"\n[NEW CONNECTION] {addr[0]} connected at {[now_time]}.",style='green')
 
 
@@ -84,7 +85,6 @@ def handle_client(conn, addr):
         except Exception as e:
             connected = False
 
-    if not ext: ext = 'unknown'
         
     console.print(f'\n[LOGOUT] Usuario {ext} - {addr} a cerrado sesión',style='bold yellow') 
     console.print(f"\n[ACTIVE CONNECTIONS] {threading.activeCount() - 2}",style='cyan')
