@@ -19,6 +19,7 @@ Este sistema fue creado con la intención de mejorar la experiencia al recibir o
 
 #### Python
 - easygui==0.98.2
+- openpyxl==3.0.9
 - PyQt5==5.15.6
 - rich==11.2.0
 

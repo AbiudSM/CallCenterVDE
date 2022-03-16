@@ -4,6 +4,7 @@ import os
 import time, datetime
 from rich.console import Console
 from rich.markdown import Markdown
+from openpyxl import Workbook, load_workbook
 
 # * GLOBAL VARIABLES
 console = Console()
@@ -40,8 +41,10 @@ def handle_client(conn, addr):
 
         ext = msg 
     except Exception as e:
+        ext = 'unknown'
         console.print(f"\n[NEW CONNECTION] {addr[0]} connected at {[now_time]}.",style='green')
 
+    daily_report('INICIÓ SESIÓN', ext)
 
     # Send the URL to the connected extension
     connected = True
@@ -82,13 +85,41 @@ def handle_client(conn, addr):
         except Exception as e:
             connected = False
 
-    if not ext: ext = 'unknown'
         
     console.print(f'\n[LOGOUT] Usuario {ext} - {addr} a cerrado sesión',style='bold yellow') 
     console.print(f"\n[ACTIVE CONNECTIONS] {threading.activeCount() - 2}",style='cyan')
 
+    daily_report('CERRÓ SESIÓN', ext)
+
     conn.close()
+
+
+# Function to save the login and logout of the extensions every day
+def daily_report(log_msg, ext):
+    try:
+        today, hour = datetime.datetime.now().strftime('%d/%m/%Y %H:%M:%S').split(' ')
         
+        file_path = f'Reports/{ext}.xlsx'
+
+        if os.path.exists(file_path): 
+            wb = load_workbook(file_path)
+            ws = wb.active
+            ws.append([today,hour,log_msg])
+            wb.save(file_path)
+
+        else:
+            wb = Workbook()
+            ws = wb.active
+            ws.title = "Reporte"
+
+            ws.append(['Fecha','Hora','Evento'])
+            ws.append([today,hour,log_msg])
+
+            wb.save(file_path)
+
+    except Exception as e:
+        console.print(f"\n[WARNING] No se pudo crear el reporte para la extensión {ext}",style='yellow')
+
 
 # Function to delete files that have more than 1 minute of modification
 def delete_file(ext):
