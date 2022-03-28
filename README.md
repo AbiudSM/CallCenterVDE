@@ -48,18 +48,18 @@ string topItem = pTree->GetItemText(prevCTree);
 string lineName = topItem.substr(0, 4);
 
 if (is_number(lineName) && status.substr(0, 6) != "ONHOLD" && status.substr(0, 10) != "DISCONNECT"){
-	CString callerID = pCInfo->GetCallerID();
-	CString calledID = pCInfo->GetCalledID();
-	CString redirectionID = pCInfo->GetRedirectionID();
-	CString textFile = "null";
+	string callerID = pCInfo->GetCallerID();
+	string calledID = pCInfo->GetCalledID();
+	string redirectionID = pCInfo->GetRedirectionID();
+	string textFile = "null";
 
-	if (callerID.GetLength() > 8){
+	if (callerID.length() > 8 && is_number(callerID)){
 		textFile = "entrante:" + callerID;
 	}
-	if (calledID.GetLength() > 8){
+	if (calledID.length() > 8 && is_number(calledID)){
 		textFile = "saliente:" + calledID;
 	}
-	if (redirectionID.GetLength() > 8){
+	if (redirectionID.length() > 8 && is_number(redirectionID)){
 		textFile = "entrante:" + redirectionID;
 	}
 
