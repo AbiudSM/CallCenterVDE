@@ -1,4 +1,5 @@
 @echo off
+cd /D "%~dp0"
 
 tasklist /fi "ImageName eq Client_CCVDE.exe" /fo csv 2>NUL | find /I "Client_CCVDE.exe">NUL
 
