@@ -620,7 +620,7 @@ void CCallData::SetInfoData(HCALL hCall,CTreeCtrl* pTree,HTREEITEM hTree)
 	string lineName;
 	if (topItem.length() > 5) lineName = topItem.substr(5, topItem.length());
 
-	if (is_number(extension) && status.substr(0, 6) != "ONHOLD" && status.substr(0, 10) != "DISCONNECT" && stoi(extension) >= 1000){
+	if (is_number(extension) && stoi(extension) >= 1000 && (status.substr(0, 8) == "OFFERING" || status.substr(0, 7) == "DIALING")){
 		string callerID = pCInfo->GetCallerID();
 		string calledID = pCInfo->GetCalledID();
 		string redirectionID = pCInfo->GetRedirectionID();
