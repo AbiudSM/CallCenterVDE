@@ -11,6 +11,7 @@
 #include <fstream> 
 #include <string>
 #include<windows.h>
+#include <sys/stat.h>
 
 using namespace std;
 
@@ -614,34 +615,66 @@ void CCallData::SetInfoData(HCALL hCall,CTreeCtrl* pTree,HTREEITEM hTree)
 	string status = pTree->GetItemText(hTree);
 	HTREEITEM prevCTree = pTree->GetParentItem(hTree);
 	string topItem = pTree->GetItemText(prevCTree);
-	string lineName = topItem.substr(0, 4);
+	string extension = topItem.substr(0, 4);
 
-	if (is_number(lineName) && status.substr(0, 6) != "ONHOLD" && status.substr(0, 10) != "DISCONNECT"){
+	string lineName;
+	if (topItem.length() > 5) lineName = topItem.substr(5, topItem.length());
+
+	if (is_number(extension) && stoi(extension) >= 1000 && (status.substr(0, 8) == "OFFERING" || status.substr(0, 7) == "DIALING")){
 		string callerID = pCInfo->GetCallerID();
 		string calledID = pCInfo->GetCalledID();
 		string redirectionID = pCInfo->GetRedirectionID();
-		string textFile = "null";
+		string textFile, callType, phoneNumber = "null";
 
 		if (callerID.length() > 8 && is_number(callerID)){
-			textFile = "entrante:" + callerID;
+			callType = "entrante";
+			phoneNumber = callerID;
 		}
 		if (calledID.length() > 8 && is_number(calledID)){
-			textFile = "saliente:" + calledID;
+			callType = "saliente";
+			phoneNumber = calledID;
 		}
 		if (redirectionID.length() > 8 && is_number(redirectionID)){
-			textFile = "entrante:" + redirectionID;
+			callType = "entrante";
+			phoneNumber = redirectionID;
 		}
 
-		if (textFile != "null"){
+		if (phoneNumber != "null"){
+
+			textFile = callType + ":" + phoneNumber;
+
 			ofstream myfile;
 
-			string file_name = "ExtText/" + lineName + ".txt";
+			string file_name = "ExtText/" + extension + ".txt";
 
 			myfile.open(file_name.c_str(), ios::out);
 
 			myfile << textFile;
 
 			myfile.close();
+			
+			// Save daily report
+			SYSTEMTIME stime;
+			::GetLocalTime(&stime);
+
+			CString date, time, reportName;
+			
+			date.Format("%02d/%02d/%04d", stime.wDay, stime.wMonth, stime.wYear);
+
+			time.Format("%02d:%02d:%02d", stime.wHour, stime.wMinute, stime.wSecond);
+
+			reportName.Format("%02d-%02d-%04d.csv", stime.wDay, stime.wMonth, stime.wYear);
+
+			ofstream reportFile;
+			reportFile.open("DailyReports/" + reportName, std::ios_base::app);
+
+
+			reportFile << status << "," << date << "," << time << "," << extension << "," << lineName << "," 
+				       << pCInfo->GetTrunk() << "," << callType << "," << phoneNumber << "," << pCInfo->GetRedirectingID() << endl;
+
+			reportFile.close();
+			
+			
 		}
 	}
 

@@ -9,13 +9,18 @@ from PyQt5.QtGui import QIcon
 # * GLOBAL VARIABLES
 # get extension
 try:
-    EXT = sys.argv[1]
+    with open('config/extension.txt','r') as extension_file:
+        EXT = extension_file.read()
 except:
     EXT = easygui.integerbox("Ingrese su extensión",title='CALL CENTER',lowerbound=999,upperbound=10000)
     if not EXT:
         sys.exit(0)
     else:
         EXT = str(EXT)
+
+        # save extension file
+        with open('config/extension.txt', 'w') as extension_file:
+            extension_file.write(EXT)
 
 # Get Server IP
 try:
@@ -97,11 +102,14 @@ def logout(e):
 
 
 # Function to change extension
-def restart():
+def change_extension():
     new_ext = easygui.integerbox("Ingrese su extensión",title='CALL CENTER',lowerbound=999,upperbound=10000)
     if new_ext:
         new_ext = str(new_ext)
-        sys.argv.insert(1,new_ext)
+
+        with open('config/extension.txt', 'w') as extension_file:
+            extension_file.write(new_ext)
+
         os.execv(sys.executable, sys.argv)
 
 
@@ -116,10 +124,10 @@ def menu(ext):
 
     menu = QMenu()
 
-    changeExtAction = menu.addAction(f'Cambiar extensión ({ext})')
-    changeExtAction.triggered.connect(restart)
+    changeExtAction = menu.addAction(QIcon('src/configuration.ico'),f'Cambiar extensión ({ext})')
+    changeExtAction.triggered.connect(change_extension)
 
-    exitAction = menu.addAction('Cerrar')
+    exitAction = menu.addAction(QIcon('src/close.png'),'Cerrar')
     exitAction.triggered.connect(app.quit)
 
     trayIcon.setContextMenu(menu)
